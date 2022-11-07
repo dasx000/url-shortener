@@ -16,7 +16,8 @@ app.get('/', async (req, res) => {
   const shortUrls = await ShortUrl.find();
   res.render('index', {
     shortUrls: shortUrls,
-    baseUrl: req.protocol + '://' + req.get('host') + req.originalUrl,
+    baseUrl: 'https://' + req.get('host') + req.originalUrl,
+    // baseUrl: req.protocol + 'https://' + req.get('host') + req.originalUrl,
   });
 });
 
