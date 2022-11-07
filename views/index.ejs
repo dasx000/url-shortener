@@ -51,13 +51,6 @@
           <% for(let i= 0; i < shortUrls.length; i++) {%>
           <tr>
             <td>
-              <input
-                hidden
-                type="text"
-                value="<%- baseUrl + shortUrls[shortUrls.length-i-1].short %>"
-                id="myInput"
-              />
-
               <a
                 id="copyUrl"
                 href="<%- shortUrls[shortUrls.length-i-1].short %>"
@@ -87,17 +80,17 @@
     <script>
       function copyToClipBoard() {
         // Get the text field
-        var copyText = document.getElementById('myInput');
+        var copyText = document.getElementById('copyText');
 
         // Select the text field
         copyText.select();
         copyText.setSelectionRange(0, 99999); // For mobile devices
 
         // Copy the text inside the text field
-        navigator.clipboard.writeText(copyText.value);
+        navigator.clipboard.writeText(copyText.href);
 
         // Alert the copied text
-        alert('Copied the text: ' + copyText.value);
+        alert('Copied the text: ' + copyText.href);
       }
     </script>
   </body>
