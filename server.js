@@ -32,6 +32,17 @@ app.post('/shortUrls', async (req, res) => {
     return res.redirect('/');
   }
 });
+app.get('/del/:short', async (req, res) => {
+  // find the shortUrl with the same shortUrl
+  const shortUrl = await ShortUrl.findOne({ short: req.params.short });
+  if (shortUrl != null) {
+    // delete data from params
+    await ShortUrl.deleteOne({ short: req.params.short });
+    return res.redirect('/');
+  } else {
+    return res.redirect('/');
+  }
+});
 
 app.get('/:shortUrl', async (req, res) => {
   const shortUrl = await ShortUrl.findOne({ short: req.params.shortUrl });
