@@ -60,9 +60,12 @@
             </td>
             <td><%- shortUrls[shortUrls.length-i-1].clicks %></td>
             <td>
-              <button class="btn btn-primary" onclick="copyToClipBoard()">
-                Copy
-              </button>
+              <a
+                href="<%- baseUrl + shortUrls[shortUrls.length-i-1].short %>"
+                class="btn btn-primary"
+                onclick="copyURI(event)"
+                >Copy</a
+              >
             </td>
             <td>
               <a
@@ -78,19 +81,17 @@
     </div>
 
     <script>
-      function copyToClipBoard() {
-        // Get the text field
-        var copyText = document.getElementById('copyUrl');
-
-        // Select the text field
-        copyText.select();
-        copyText.setSelectionRange(0, 99999); // For mobile devices
-
-        // Copy the text inside the text field
-        navigator.clipboard.writeText(copyText.href);
-
-        // Alert the copied text
-        alert('Copied the text: ' + copyText.href);
+      function copyURI(evt) {
+        evt.preventDefault();
+        navigator.clipboard.writeText(evt.target.getAttribute('href')).then(
+          () => {
+            alert('Copied to clipboard');
+          },
+          () => {
+            /* clipboard write failed */
+            alert('Failed to copy');
+          }
+        );
       }
     </script>
   </body>
