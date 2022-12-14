@@ -32,6 +32,24 @@ app.post('/shortUrls', async (req, res) => {
     return res.redirect('/');
   }
 });
+app.get('/shortUrls', async (req, res) => {
+  // find the shortUrl with the same shortUrl
+  const shortUrl = await ShortUrl.findOne({ short: req.query.short });
+  console.log(shortUrl);
+  if (shortUrl == null) {
+    await ShortUrl.create({ full: req.query.full, short: req.body.short });
+    // return json
+    return res.json({
+      status: 200,
+      shortUrl: 'https://' + req.get('host') + '/' + req.query.short,
+      fullUrl: req.query.full,
+    });
+  } else {
+    return res.json({
+      status: 404,
+    });
+  }
+});
 app.get('/del/:short', async (req, res) => {
   // find the shortUrl with the same shortUrl
   const shortUrl = await ShortUrl.findOne({ short: req.params.short });
