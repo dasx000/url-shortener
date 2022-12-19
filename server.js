@@ -37,7 +37,7 @@ app.get('/shortUrls', async (req, res) => {
   const shortUrl = await ShortUrl.findOne({ short: req.query.short });
   console.log(shortUrl);
   if (shortUrl == null) {
-    await ShortUrl.create({ full: req.query.full, short: req.body.short });
+    await ShortUrl.create({ full: req.query.full, short: req.query.short });
     // return json
     return res.json({
       status: 200,
