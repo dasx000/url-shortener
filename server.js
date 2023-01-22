@@ -25,8 +25,10 @@ app.post('/shortUrls', async (req, res) => {
   // find the shortUrl with the same shortUrl
   const shortUrl = await ShortUrl.findOne({ short: req.body.shorturl });
   console.log(shortUrl);
+  const short = req.body.shortUrl;
+  if (short.length > 40) return;
   if (shortUrl == null) {
-    await ShortUrl.create({ full: req.body.fullUrl, short: req.body.shorturl });
+    await ShortUrl.create({ full: req.body.fullUrl, short: short });
     return res.redirect('/');
   } else {
     return res.redirect('/');
